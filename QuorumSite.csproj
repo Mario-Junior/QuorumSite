@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="QuorumSite.Tests/**" />
+    <EmbeddedResource Remove="QuorumSite.Tests/**" />
+    <None Remove="QuorumSite.Tests/**" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <PackageReference Include="CsvHelper" Version="33.0.1" />
   </ItemGroup>
 
