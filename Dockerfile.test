@@ -1,0 +1,34 @@
+# Dockerfile apenas para rodar testes
+FROM mcr.microsoft.com/dotnet/sdk:8.0
+
+WORKDIR /src
+
+# Copy project files
+COPY QuorumSite.sln .
+COPY QuorumSite.csproj .
+COPY QuorumSite.Tests/QuorumSite.Tests.csproj ./QuorumSite.Tests/
+
+# Restore dependencies
+RUN dotnet restore
+
+# Copy source code
+COPY . .
+
+# Criar usuário não-root e ajustar permissões
+RUN useradd -m -u 1000 appuser && \
+    chown -R appuser:appuser /src && \
+    mkdir -p /src/TestResults && \
+    chown appuser:appuser /src/TestResults
+USER appuser
+
+# Run tests with HTML logger - o relatório será salvo em TestResults/
+CMD dotnet test --verbosity normal \
+    --logger "console;verbosity=detailed" \
+    --logger "html" \
+    --results-directory /src/TestResults && \
+    echo "\n==========================================" && \
+    echo "✅ Relatório HTML gerado com sucesso!" && \
+    echo "📄 Arquivo: TestResults/test-report.html" && \
+    echo "🌐 Abra o arquivo no seu navegador" && \
+    echo "==========================================" || \
+    (echo "❌ Erro ao gerar relatório" && exit 1)
