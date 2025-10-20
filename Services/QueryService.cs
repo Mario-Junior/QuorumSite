@@ -1,5 +1,3 @@
-using QuorumSite.Models;
-
 namespace QuorumSite.Services;
 
 public class QueryService
