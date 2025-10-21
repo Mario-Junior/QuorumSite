@@ -1,0 +1,18 @@
+# Dockerfile apenas para rodar testes
+FROM mcr.microsoft.com/dotnet/sdk:8.0
+
+WORKDIR /src
+
+# Copy project files
+COPY QuorumSite.sln .
+COPY QuorumSite.csproj .
+COPY QuorumSite.Tests/QuorumSite.Tests.csproj ./QuorumSite.Tests/
+
+# Restore dependencies
+RUN dotnet restore
+
+# Copy source code
+COPY . .
+
+# Run tests
+CMD ["dotnet", "test", "--verbosity", "normal"]
