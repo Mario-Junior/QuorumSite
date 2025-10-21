@@ -41,6 +41,15 @@ QuorumSite/
 
 ## Quick Start
 
+### Prerequisites
+
+If you're viewing this on GitHub, first clone the repository:
+
+```bash
+git clone https://github.com/Mario-Junior/QuorumSite.git
+cd QuorumSite
+```
+
 ### Option 1: Docker (Recommended)
 
 ```bash
@@ -119,37 +128,14 @@ dotnet test
 dotnet test --verbosity normal
 ```
 
-### Docker Testing with HTML Reports
+### Docker Testing
 
 ```bash
 # Build test image
 docker build -f Dockerfile.test -t quorumsite-tests .
 
-# Create TestResults directory (required to avoid permission issues)
-mkdir -p TestResults
-
-# Run tests (choose your platform)
-# Linux/macOS:
-docker run --rm -v \$(pwd)/TestResults:/src/TestResults quorumsite-tests
-
-# Windows PowerShell:
-docker run --rm -v \${PWD}/TestResults:/src/TestResults quorumsite-tests
-
-# Windows CMD:
-docker run --rm -v %cd%/TestResults:/src/TestResults quorumsite-tests
-
-# Open HTML report (choose your platform)
-# Linux:
-xdg-open TestResults/*.html
-
-# macOS:
-open TestResults/*.html
-
-# Windows PowerShell:
-Start-Process (Get-ChildItem TestResults\*.html).FullName
-
-# Windows CMD:
-start TestResults\*.html
+# Run tests
+docker run --rm quorumsite-tests
 ```
 
 ### Test Coverage
@@ -186,7 +172,6 @@ Key validations:
 
 ### DevOps
 - **Docker**: Multi-stage builds for optimization
-- **HTML Test Reports**: Native .NET HTML logger
 
 ## Architecture Highlights
 
@@ -260,4 +245,4 @@ For each bill, calculates:
 
 ---
 
-**Built with 💜 using .NET 8 and modern web technologies**
+**Built with 💜 using .NET 8 and modern web technologies for the  Quorum team**
